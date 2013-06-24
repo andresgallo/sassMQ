@@ -30,22 +30,3 @@
   	@content;
   }
 }
-
-/* SAMPLE CSS TEST */
-.TEST {//Multiple media query example
-  @include sassMQ( (600)(null 599 null portrait)() ){
-    color: green;
-  }
-}
-
-@include sassMQ( (null null print null)() ){
-  .TESTB {
-    color: red;//Not that color matters in most printer stylesheets
-  }
-}
-
-@include sassMQ( (600)(600 1000)(600 1000 print)(600 1000 print landscape) ){
-  .TESTB {
-    color: orange;
-  }
-}
