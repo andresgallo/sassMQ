@@ -1,0 +1,51 @@
+@mixin sassMQ($queries){
+  $mediaQueryBuild: '';//Query will be written here
+  $queriesLn: length($queries) - 1;//Substracted additional empty list
+  
+  @for $i from 1 through $queriesLn {
+  	
+    $q: nth($queries, $i);
+	$__divider:    '';
+  	$ln: length($q);
+	
+	//DEFAULTS
+	$_min:         '';
+	$_max:         '';
+	$_format:      ' only screen ';
+	$_orientation: '';
+	
+	//CHECKS
+  	@if $ln > 0 and nth($q, 1) != null{    $_min: ' and (min-width: ' + nth($q, 1) + 'px) ';         }
+	@if $ln > 1 and nth($q, 2) != null{    $_max: ' and (max-width: ' + nth($q, 2) + 'px) ';         }
+	@if $ln > 2 and nth($q, 3) != null{    $_format: ' only ' + nth($q, 3);                          }
+	@if $ln > 3 and nth($q, 4) != null{    $_orientation: ' and (orientation: ' + nth($q, 4) + ') '; }
+   	@if $queriesLn != $i                     {    $__divider: ',';                                          }
+	
+	//BuildQuery
+	$mediaQueryBuild: #{$mediaQueryBuild} #{$_format}#{$_min}#{$_max}#{$_orientation} #{$__divider};
+  }
+  
+  //Write Query
+  @media #{$mediaQueryBuild} {
+  	@content;
+  }
+}
+
+/* SAMPLE CSS TEST */
+.TEST {//Multiple media query example
+  @include sassMQ( (600)(null 599 null portrait)() ){
+    color: green;
+  }
+}
+
+@include sassMQ( (null null print null)() ){
+  .TESTB {
+    color: red;//Not that color matters in most printer stylesheets
+  }
+}
+
+@include sassMQ( (600)(600 1000)(600 1000 print)(600 1000 print landscape) ){
+  .TESTB {
+    color: orange;
+  }
+}
