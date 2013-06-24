@@ -6,6 +6,7 @@ There are many sass mixins to make media queries all over the internet but all o
 Using the script
 ---------------
 
+* First import the mixin....
 * Should you want to skip the instructions there are some examples below ...oh yeee!
 * To use the script simply call the sass mixing 'media' and pass it a single or multiple lists followed by an empty list to tell sass to iterate through them 2 level list. The syntax for the lists is ().  
 * Each list corresponds to each media query. 
